@@ -1,5 +1,5 @@
 sudo: true
-dist: trusty
+dist: bionic
 
 language: python
 python:
@@ -11,3 +11,4 @@ before_install:
 script:
   - ./functional_tests/biodaniel-test.sh -p biodaniel -d functional_tests/test_data
   - ./.travis/unit-test.sh
+
