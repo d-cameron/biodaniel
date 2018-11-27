@@ -16,6 +16,7 @@ this_program_name="biodaniel-test.sh"
 test_program=""
 # Directory containing the test data files and expected outputs
 test_data_dir=""
+source_entrypoint=""
 # Number of failed test cases
 num_errors=0
 # Total number of tests run
@@ -27,10 +28,10 @@ cat << UsageMessage
 ${this_program_name}: run integration/regression tests for biodaniel 
 
 Usage:
-    ${this_program_name} [-h] [-v] -p program -d test_data_dir 
+    ${this_program_name} [-h] [-v] -p program -d test_data_dir -s source_file
 
 Example:
-    ${this_program_name} -p bin/biodaniel -d data/tests
+    ${this_program_name} -p bin/biodaniel -d data/tests -s ../../biodaniel/biodaniel.py
 
 -h shows this help message
 
@@ -55,13 +56,15 @@ function verbose_message {
 function parse_args {
     local OPTIND opt
 
-    while getopts "hp:d:v" opt; do
+    while getopts "hp:d:vs:" opt; do
         case "${opt}" in
             h)
                 show_help
                 exit 0
                 ;;
-	p)  test_program="$(which ${OPTARG})"
+	p)  test_program="${OPTARG}"
+                ;;
+	s)  source_entrypoint="${OPTARG}"
                 ;;
             d)  test_data_dir="${OPTARG}"
                 ;;
@@ -84,8 +87,9 @@ function parse_args {
 }
 
 function test_coverage {
-	echo "Rerunning with code coverage"
-	eval "coverage run $1"
+	if [[ "$source_entrypoint" != "" ]] ; then
+		coverage run $source_entrypoint ${1/$test_program/} >/dev/null 2>&1
+	fi
 }
 
 # Run a command and check that the output is
