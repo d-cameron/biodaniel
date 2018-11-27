@@ -61,7 +61,7 @@ function parse_args {
                 show_help
                 exit 0
                 ;;
-            p)  test_program="${OPTARG}"
+	p)  test_program="$(which ${OPTARG})"
                 ;;
             d)  test_data_dir="${OPTARG}"
                 ;;
@@ -83,6 +83,10 @@ function parse_args {
     fi
 }
 
+function test_coverage {
+	echo "Rerunning with code coverage"
+	eval "coverage run $1"
+}
 
 # Run a command and check that the output is
 # exactly equal the contents of a specified file 
@@ -113,6 +117,7 @@ function test_stdout_exit {
         echo "Actual exit status: $exit_status"
         echo "Expected exit status: $expected_exit_status"
     fi 
+    test_coverage "$1"
 }
 
 # Run a command and check that the exit status is 
@@ -135,6 +140,7 @@ function test_exit_status {
         echo "Actual exit status: $exit_status"
         echo "Expected exit status: $expected_exit_status"
     fi 
+    test_coverage "$1"
 }
 
 

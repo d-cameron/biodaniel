@@ -11,5 +11,6 @@ before_install:
 script:
   - ./functional_tests/biodaniel-test.sh -p biodaniel -d functional_tests/test_data
   - ./.travis/unit-test.sh
+  - coverage combine .coverage functional_tests/test_data/.coverage
   - codecov
 
