@@ -1,4 +1,5 @@
 [![travis](https://travis-ci.org/d-cameron/biodaniel.svg?branch=master)](https://travis-ci.org/d-cameron/biodaniel)
+[![codecov](https://codecov.io/github/d-cameron/biodaniel/branch/master/graphs/badge.svg)](https://codecov.io/github/d-cameron/biodaniel) 
 
 # Overview 
 
