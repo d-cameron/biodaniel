@@ -4,13 +4,8 @@ set -e
 errors=0
 
 # Run unit tests
-coverage run biodaniel/test_biodaniel.py || {
-    echo "'python python/biodaniel/biodaniel_test.py' failed"
-    let errors+=1
-}
-
-coverage run biodaniel/test_fastastats.py || {
-    echo "'python python/biodaniel/biodaniel_test.py' failed"
+coverage run -m unittest discover biodaniel || {
+    echo "'coverage run -m unittest discover' failed"
     let errors+=1
 }
 

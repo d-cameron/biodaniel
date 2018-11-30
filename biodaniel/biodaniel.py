@@ -16,14 +16,14 @@ import sys
 import logging
 import pkg_resources
 from Bio import SeqIO
-from fastastats import FastaStats
+from biodaniel import FastaStats
 
 EXIT_FILE_IO_ERROR = 1
 EXIT_COMMAND_LINE_ERROR = 2
 EXIT_FASTA_FILE_ERROR = 3
 DEFAULT_MIN_LEN = 0
 DEFAULT_VERBOSE = False
-HEADER = 'FILENAME\tNUMSEQ\tTOTAL\tMIN\tAVG\tMAX'
+HEADER = 'FILENAME\tNUMSEQ\tTOTAL\tMIN\tAVG\tMAX\tA'
 PROGRAM_NAME = "biodaniel"
 
 

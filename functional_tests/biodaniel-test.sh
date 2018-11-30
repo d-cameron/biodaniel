@@ -87,9 +87,7 @@ function parse_args {
 }
 
 function test_coverage {
-	if [[ "$source_entrypoint" != "" ]] ; then
-		coverage run $source_entrypoint ${1/$test_program/} >/dev/null 2>&1
-	fi
+	coverage run $1 >/dev/null 2>&1
 }
 
 # Run a command and check that the output is

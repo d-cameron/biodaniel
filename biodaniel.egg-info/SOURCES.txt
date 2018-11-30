@@ -1,0 +1,12 @@
+README.md
+biodaniel/__init__.py
+biodaniel/biodaniel.py
+biodaniel/fastastats.py
+biodaniel/test_biodaniel.py
+biodaniel/test_fastastats.py
+biodaniel.egg-info/PKG-INFO
+biodaniel.egg-info/SOURCES.txt
+biodaniel.egg-info/dependency_links.txt
+biodaniel.egg-info/entry_points.txt
+biodaniel.egg-info/requires.txt
+biodaniel.egg-info/top_level.txt

@@ -1,0 +1,1 @@
+from .fastastats import FastaStats

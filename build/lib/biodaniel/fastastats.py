@@ -11,7 +11,7 @@ EXIT_COMMAND_LINE_ERROR = 2
 EXIT_FASTA_FILE_ERROR = 3
 DEFAULT_MIN_LEN = 0
 DEFAULT_VERBOSE = False
-HEADER = 'FILENAME\tNUMSEQ\tTOTAL\tMIN\tAVG\tMAX'
+HEADER = 'FILENAME\tNUMSEQ\tTOTAL\tMIN\tAVG\tMAX\tA'
 
 class FastaStats(object):
     '''Compute various statistics for a FASTA file:
@@ -23,6 +23,7 @@ class FastaStats(object):
     max_len: the maximum length of the counted sequences.
     average: the average length of the counted sequences rounded down
        to an integer.
+    num_A: the number of As in the counted sequences.
     '''
     #pylint: disable=too-many-arguments
     def __init__(self,
@@ -30,13 +31,15 @@ class FastaStats(object):
                  num_bases=None,
                  min_len=None,
                  max_len=None,
-                 average=None):
+                 average=None,
+                 num_A=None):
         "Build an empty FastaStats object"
         self.num_seqs = num_seqs
         self.num_bases = num_bases
         self.min_len = min_len
         self.max_len = max_len
         self.average = average
+        self.num_A = num_A
 
     def __eq__(self, other):
         "Two FastaStats objects are equal iff their attributes are equal"
@@ -47,9 +50,9 @@ class FastaStats(object):
     def __repr__(self):
         "Generate a printable representation of a FastaStats object"
         return "FastaStats(num_seqs={}, num_bases={}, min_len={}, max_len={}, " \
-            "average={})".format(
+            "average={}, A={})".format(
                 self.num_seqs, self.num_bases, self.min_len, self.max_len,
-                self.average)
+                self.average, self.num_A)
 
     def from_file(self, fasta_file, minlen_threshold=DEFAULT_MIN_LEN):
         '''Compute a FastaStats object from an input FASTA file.
@@ -63,7 +66,7 @@ class FastaStats(object):
         Result:
            A FastaStats object
         '''
-        num_seqs = num_bases = 0
+        num_seqs = num_bases = num_A = 0
         min_len = max_len = None
         for seq in SeqIO.parse(fasta_file, "fasta"):
             this_len = len(seq)
@@ -75,6 +78,7 @@ class FastaStats(object):
                     max_len = max(this_len, max_len)
                 num_seqs += 1
                 num_bases += this_len
+                num_A += seq.seq.count("A")
         if num_seqs > 0:
             self.average = int(floor(float(num_bases) / num_seqs))
         else:
@@ -83,6 +87,7 @@ class FastaStats(object):
         self.num_bases = num_bases
         self.min_len = min_len
         self.max_len = max_len
+        self.num_A = num_A
         return self
 
     def pretty(self, filename):
@@ -104,9 +109,10 @@ class FastaStats(object):
             min_len = str(self.min_len)
             average = str(self.average)
             max_len = str(self.max_len)
+            num_A = str(self.num_A)
         else:
             num_seqs = num_bases = "0"
             min_len = average = max_len = "-"
         return "\t".join([filename, num_seqs, num_bases, min_len, average,
-                          max_len])
+                          max_len, num_A])
 

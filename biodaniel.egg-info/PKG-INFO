@@ -1,0 +1,15 @@
+Metadata-Version: 1.0
+Name: biodaniel
+Version: 0.2.0.2
+Summary: A prototypical bioinformatics command line tool
+Home-page: https://github.com/bjpop/biodaniel
+Author: Daniel Cameron
+Author-email: cameron.d@wehi.edu.au
+License: LICENSE
+Description: The program reads one or more input FASTA files.
+        For each file it computes a variety of statistics, and then
+        prints a summary of the statistics as output.
+        
+        The goal is to provide a solid foundation for new bioinformatics command line tools,
+        and is an ideal starting place for new projects.
+Platform: UNKNOWN

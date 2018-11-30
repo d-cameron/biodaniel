@@ -1,0 +1,3 @@
+[console_scripts]
+biodaniel = biodaniel.biodaniel:main
+

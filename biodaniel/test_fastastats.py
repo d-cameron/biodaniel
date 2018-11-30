@@ -7,7 +7,7 @@ Usage: python -m unittest -v biodaniel_test
 import unittest
 from io import StringIO
 #pylint: disable=no-name-in-module
-from biodaniel import FastaStats
+from fastastats import FastaStats
 
 class TestFastaStats(unittest.TestCase):
     '''Unit tests for FastaStats'''
@@ -22,7 +22,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=0,
                               min_len=None,
                               max_len=None,
-                              average=None)
+                              average=None,
+                              num_A=0)
         self.do_test('', 0, expected)
 
     def test_single_newline_input(self):
@@ -31,7 +32,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=0,
                               min_len=None,
                               max_len=None,
-                              average=None)
+                              average=None,
+                              num_A=0)
         self.do_test('\n', 0, expected)
 
     def test_single_greater_than_input(self):
@@ -40,7 +42,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=0,
                               min_len=0,
                               max_len=0,
-                              average=0)
+                              average=0,
+                              num_A=0)
         self.do_test('>', 0, expected)
 
     def test_one_sequence(self):
@@ -49,8 +52,9 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=5,
                               min_len=5,
                               max_len=5,
-                              average=5)
-        self.do_test(">header\nATGC\nA", 0, expected)
+                              average=5,
+                              num_A=2)
+        self.do_test(">header\nATGC\nA", 1, expected)
 
     def test_two_sequences(self):
         "Test input containing two sequences"
@@ -58,7 +62,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=9,
                               min_len=2,
                               max_len=7,
-                              average=4)
+                              average=4,
+                              num_A=2)
         self.do_test(">header1\nATGC\nAGG\n>header2\nTT\n", 0, expected)
 
     def test_no_header(self):
@@ -67,7 +72,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=0,
                               min_len=None,
                               max_len=None,
-                              average=None)
+                              average=None,
+                              num_A=0)
         self.do_test("no header\n", 0, expected)
 
     def test_minlen_less_than_all(self):
@@ -76,7 +82,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=9,
                               min_len=2,
                               max_len=7,
-                              average=4)
+                              average=4,
+                              num_A=2)
         self.do_test(">header1\nATGC\nAGG\n>header2\nTT\n", 2, expected)
 
     def test_minlen_greater_than_one(self):
@@ -85,7 +92,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=7,
                               min_len=7,
                               max_len=7,
-                              average=7)
+                              average=7,
+                              num_A=2)
         self.do_test(">header1\nATGC\nAGG\n>header2\nTT\n", 3, expected)
 
     def test_minlen_greater_than_all(self):
@@ -94,7 +102,8 @@ class TestFastaStats(unittest.TestCase):
                               num_bases=0,
                               min_len=None,
                               max_len=None,
-                              average=None)
+                              average=None,
+                              num_A=0)
         self.do_test(">header1\nATGC\nAGG\n>header2\nTT\n", 8, expected)
 
 

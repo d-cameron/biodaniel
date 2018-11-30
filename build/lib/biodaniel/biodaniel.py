@@ -16,7 +16,7 @@ import sys
 import logging
 import pkg_resources
 from Bio import SeqIO
-from fastastats import FastaStats
+from biodaniel.fastastats import FastaStats
 
 EXIT_FILE_IO_ERROR = 1
 EXIT_COMMAND_LINE_ERROR = 2
